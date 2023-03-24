@@ -2,8 +2,6 @@
 
 {% block content %}
 
-{% include 'includes/error.html' %}
-
 <form method="post">{% csrf_token %}
     {{form}}
     <button type="submit">Enviar</button>

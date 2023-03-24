@@ -1,8 +1,9 @@
+import uuid
 from django.db import models
 
 # Create your models here.
 class Pessoa(models.Model):
-    uuid = models.UUIDField(primary_key=True)
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nome = models.CharField(max_length=255)
     cpf = models.CharField(max_length=14, unique=True)
     email = models.EmailField()
@@ -19,7 +20,6 @@ class Endereco(models.Model):
     estado = models.CharField(max_length=2)
 
 class DadosBancarios(models.Model):
-    # Perguntar Marangon
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
     banco = models.CharField(max_length=127)
     agencia = models.CharField(max_length=31)
@@ -30,7 +30,7 @@ class Mantenedor(models.Model):
     nome = models.CharField(max_length=255)
     responsavel = models.CharField(max_length=255)
     cnpj = models.CharField(max_length=18)
-    endereco = models.ForeignKey(Endereco, on_delete=models.RESTRICT)
+    endereco = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True)
     telefone = models.CharField(max_length=15)
     email = models.EmailField()
     tipo = models.CharField(max_length=15, choices=(('Municipal', 'Municipal'), ('Estadual', 'Estadual')))
@@ -44,7 +44,7 @@ class Polo(models.Model):
     )
     
     nome = models.CharField(max_length=255)
-    endereco = models.ForeignKey(Endereco, on_delete=models.RESTRICT)
+    endereco = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True)
     email_institucional = models.EmailField()
     telefone = models.CharField(max_length=15)
     ativo = models.BooleanField()
@@ -86,7 +86,7 @@ class Disciplina(models.Model):
     tipo_disciplina = models.CharField(max_length=55)
     curso = models.ForeignKey(Curso, on_delete=models.SET_NULL, null=True)
 
-class PessoaFichaUAB(models.Model):
+class PessoaFichaUab(models.Model):
     BOLSA_REQUERIDA_CHOICES = (
         ('COORDENADOR UAB I', 'COORDENADOR UAB I'),
         ('COORDENADOR ADJUNTO UAB I', 'COORDENADOR ADJUNTO UAB I'),
@@ -139,4 +139,4 @@ class PessoaFichaUAB(models.Model):
     ultimo_curso_titulacao = models.CharField(max_length=127)
     instituicao_titulacao = models.CharField(max_length=127)
     dados_bancarios = models.ForeignKey(DadosBancarios, on_delete=models.SET_NULL, null=True)
-    data_inicio_vinculacao = models.DateField() # ?
+    data_inicio_vinculacao = models.DateField()
