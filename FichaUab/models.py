@@ -74,6 +74,9 @@ class Curso(models.Model):
     descricao = models.TextField()
     perfil_egresso = models.TextField()
 
+    def __str__(self):
+        return self.nome
+
 class Disciplina(models.Model):
     TIPO_DISCIPLINA_CHOICES = (
         ('Disciplina Convencional', 'Disciplina Convencional'),
