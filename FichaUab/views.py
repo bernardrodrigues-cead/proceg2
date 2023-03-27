@@ -125,7 +125,7 @@ class PessoaFichaUabCreateView(CreateView):
     def form_valid(self, form):
         # Armazena o novo Endereço
         new_endereco = Endereco(
-            cep = form.cleaned_data['cep'],
+            cep = ''.join(c for c in form.cleaned_data['cep'] if c.isdigit()),
             logradouro = form.cleaned_data['logradouro'],
             numero = form.cleaned_data['numero'],
             complemento = form.cleaned_data['complemento'],
@@ -161,7 +161,7 @@ class PessoaFichaUabUpdateView(UpdateView):
     form_class = PessoaFichaUabForm
     model = PessoaFichaUab
     success_url = '/fichauab'
-    template_name = 'fichaUab/update_pessoa_ficha_uab.html'
+    template_name = 'fichaUab/create_pessoa_ficha_uab.html'
 
     # Função para preencher os campos com valores enviados pelo Cookie
     def get_initial(self):

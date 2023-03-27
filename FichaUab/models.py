@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from localflavor.br.br_states import STATE_CHOICES
 
 # Create your models here.
 class Pessoa(models.Model):
@@ -17,7 +18,7 @@ class Endereco(models.Model):
     referencia = models.CharField(max_length=63, null=True, blank=True, verbose_name='Referência')
     bairro = models.CharField(max_length=127)
     cidade = models.CharField(max_length=127)
-    estado = models.CharField(max_length=2)
+    estado = models.CharField(max_length=2, choices=STATE_CHOICES)
 
 class DadosBancarios(models.Model):
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
@@ -130,7 +131,7 @@ class PessoaFichaUab(models.Model):
     numero_documento = models.CharField(max_length=31, verbose_name='Número do Documento')
     orgao_expeditor = models.CharField(max_length=15, verbose_name='Órgão Expeditor')
     data_emissao = models.DateField(verbose_name='Data de Emissão')
-    uf_nascimento = models.CharField(max_length=2, verbose_name='UF de Nascimento')
+    uf_nascimento = models.CharField(max_length=2, verbose_name='UF de Nascimento', choices=STATE_CHOICES)
     municipio_nascimento = models.CharField(max_length=255, verbose_name='Município de Nascimento')
     estado_civil = models.CharField(max_length=15, choices=ESTADO_CIVIL_CHOICES, verbose_name='Estado Civil')
     nome_conjuge = models.CharField(max_length=255, null=True, blank=True, verbose_name='Nome do Cônjuge')

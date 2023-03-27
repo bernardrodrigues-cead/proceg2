@@ -8,12 +8,12 @@
 <form 
     method="post"
     class="
-        [&>div]:flex [&>div]:flex-col [&>div]:gap-2
+        [&>div]:flex [&>div]:flex-col [&>div]:gap-4
         [&>div>div]:flex [&>div>div]:items-center [&>div>div]:gap-2
         [&>div>input]:border [&>div>input]:border-slate-300 [&>div>input]:p-2 
         [&>div>div>input]:border [&>div>div>input]:border-slate-300 [&>div>div>input]:p-2 [&>div>div>input:read-only]:bg-zinc-200
         [&>div>div>select]:p-2 [&>div>div>select]:border
-        w-[990px] absolute left-1/2 -translate-x-1/2
+        w-[990px] relative left-1/2 -translate-x-1/2 mb-16
     "
 >{% csrf_token %}
     {% include 'components/form_header.html' with title='Ficha para provimento de bolsa' %}
@@ -30,11 +30,9 @@
             <label>{{form.nome.label}}: </label>{{form.nome}}
             <label>{{form.sexo.label}}: </label>{{form.sexo}}
         </div>
-        <div>
+        <div class="justify-between [&>input:read-only]:w-2/12 [&>input:last-child]:w-4/12">
             <label>{{form.cpf.label}}: </label>{{form.cpf}}
             <label>{{form.data_nascimento.label}}: </label>{{form.data_nascimento}}
-        </div>
-        <div>
             <label>{{form.profissao.label}}: </label>{{form.profissao}}
         </div>
         <div>
@@ -45,15 +43,15 @@
             <label>{{form.orgao_expeditor.label}}: </label>{{form.orgao_expeditor}}
             <label>{{form.data_emissao.label}}: </label>{{form.data_emissao}}
         </div>
-        <div>
+        <div class="[&>input:last-child]:w-5/12 justify-between">
             <label>{{form.uf_nascimento.label}}: </label>{{form.uf_nascimento}}
             <label>{{form.municipio_nascimento.label}}: </label>{{form.municipio_nascimento}}
         </div>
-        <div>
+        <div class="[&>input:last-child]:w-7/12 justify-between">
             <label>{{form.estado_civil.label}}: </label>{{form.estado_civil}}
             <label>{{form.nome_conjuge.label}}: </label>{{form.nome_conjuge}}
         </div>
-        <div>
+        <div class="[&>input]:w-4/12 justify-between">
             <label>{{form.nome_pai.label}}: </label>{{form.nome_pai}}
             <label>{{form.nome_mae.label}}: </label>{{form.nome_mae}}
         </div>  
@@ -64,15 +62,15 @@
         <div>
             <label>{{form.cep.label}}: </label>{{form.cep}}
         </div>
-        <div>
+        <div class="[&>input]:w-full [&>input:last-child]:w-20">
             <label>{{form.logradouro.label}}: </label>{{form.logradouro}}
             <label>{{form.numero.label}}: </label>{{form.numero}}
         </div>
-        <div>
+        <div class="[&>input:last-child]:w-full">
             <label>{{form.complemento.label}}: </label>{{form.complemento}}
             <label>{{form.referencia.label}}: </label>{{form.referencia}}
         </div>
-        <div>
+        <div class="[&>input]:w-full">
             <label>{{form.bairro.label}}: </label>{{form.bairro}}
             <label>{{form.cidade.label}}: </label>{{form.cidade}}
         </div>
@@ -85,16 +83,20 @@
     {% include 'components/form_subheader.html' with title='Formação em Nível Superior' %}
     <div>
         <div><label>{{form.area_ultimo_curso_superior.label}}: </label>{{form.area_ultimo_curso_superior}}</div>
-        <div><label>{{form.ultimo_curso_titulacao.label}}: </label>{{form.ultimo_curso_titulacao}}</div>
-        <div><label>{{form.instituicao_titulacao.label}}: </label>{{form.instituicao_titulacao}}</div>
+        <div class="[&>input]:w-9/12"><label>{{form.ultimo_curso_titulacao.label}}: </label>{{form.ultimo_curso_titulacao}}</div>
+        <div class="[&>input]:w-9/12"><label>{{form.instituicao_titulacao.label}}: </label>{{form.instituicao_titulacao}}</div>
     </div>
 
     {% include 'components/form_subheader.html' with title='Dados Bancários' %}
     <div>
-        <div><label>{{form.banco.label}}: </label>{{form.banco}}</div>
-        <div><label>{{form.agencia.label}}: </label>{{form.agencia}}</div>
-        <div><label>{{form.conta.label}}: </label>{{form.conta}}</div>
-        <div><label>{{form.operacao.label}}: </label>{{form.operacao}}</div>
+        <div class="[&>input]:w-full">
+            <label>{{form.banco.label}}: </label>{{form.banco}}
+        </div>
+        <div>
+            <label>{{form.agencia.label}}: </label>{{form.agencia}}
+            <label>{{form.conta.label}}: </label>{{form.conta}}
+            <label>{{form.operacao.label}}: </label>{{form.operacao}}
+        </div>
         <div><label>{{form.data_inicio_vinculacao.label}}: </label>{{form.data_inicio_vinculacao}}</div>
     </div>
 

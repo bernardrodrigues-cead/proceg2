@@ -1,5 +1,6 @@
 from django import forms
 from FichaUab.utils.validators import is_cpf_valid
+from localflavor.br.br_states import STATE_CHOICES
 
 from FichaUab.models import PessoaFichaUab
 
@@ -14,14 +15,14 @@ class PessoaFichaUabForm(forms.ModelForm):
     email = forms.EmailField(label='E-mail')
 
     # Endereço
-    cep = forms.CharField(max_length=8, label='CEP')
+    cep = forms.CharField(max_length=10, label='CEP')
     logradouro = forms.CharField(max_length=255)
     numero = forms.CharField(max_length=15, label='Número')
     complemento = forms.CharField(max_length=31, required=False)
     referencia = forms.CharField(max_length=63, required=False, label='Referência')
     bairro = forms.CharField(max_length=127)
     cidade = forms.CharField(max_length=127)
-    estado = forms.CharField(max_length=2)
+    estado = forms.ChoiceField(required=True, choices=STATE_CHOICES)
 
     # Dados Bancários
     banco = forms.CharField(max_length=127)
