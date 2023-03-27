@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django import forms
 from django.shortcuts import redirect, render
 from django.views.generic.edit import UpdateView, CreateView
@@ -51,12 +52,26 @@ class PessoaCreateView(CreateView):
     template_name = 'fichaUab/create_pessoa.html'
     success_url = '/fichauab/create'
    
+    # Função para reordenar os campos do formulário
+    def order_fields(self, fields):
+        return OrderedDict([
+            ('cpf', fields['cpf']),
+            ('nome', fields['nome']),
+            ('data_nascimento', fields['data_nascimento']),
+            ('email', fields['email']),
+            ('confirmacao_email', fields['confirmacao_email'])
+        ])
+    
     # Função para realizar manutenções no formulário
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
+        form.fields['confirmacao_email'] = forms.EmailField(label="Confirmação de e-mail")
         form.fields['cpf'].widget = forms.TextInput({'readonly': True})
         form.fields['data_nascimento'].widget = forms.DateInput({'type': 'date'})
+        # Chamada da função de reordenação dos campos
+        form.fields = self.order_fields(form.fields)
         return form
+    
 
     # Função para preencher os campos com valores enviados pelo Cookie
     def get_initial(self):

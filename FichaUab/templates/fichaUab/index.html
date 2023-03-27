@@ -2,11 +2,19 @@
 
 {% block content %}
 
-{% include 'includes/error.html' %}
+{% include 'components/error.html' %}
 
-<form method="post">{% csrf_token %}
+<!-- O descritor [&>input]: do Tailwind indica todos os filhos daquele elemento do tipo input -->
+<form 
+class="
+        [&>input]:border [&>input]:border-slate-300 [&>input]:p-2
+        absolute left-1/2 -translate-x-1/2
+    " 
+    method="post"
+>{% csrf_token %}
+    <h1 class="w-full text-center text-2xl font-[300] mb-4">Para entrar, digite seu CPF:</h1>
     {{form}}
-    <button type="submit">Enviar</button>
+    {% include 'components/submitButton.html' with title='Enviar' %}
 </form>
 
 {% endblock %}

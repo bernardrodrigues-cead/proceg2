@@ -2,9 +2,18 @@
 
 {% block content %}
 
-<form method="post">{% csrf_token %}
+<!-- O descritor [&>input]: do Tailwind indica todos os filhos daquele elemento do tipo input -->
+<form
+    class="
+        [&>input]:border [&>input]:border-slate-300 [&>input]:p-2 [&>input:read-only]:bg-zinc-200 [&>input:read-only]:text-zinc-500
+        flex flex-col gap-2 w-96 absolute left-1/2 -translate-x-1/2 px-4 py-8 shadow-xl
+    "
+    method="post"
+>{% csrf_token %}
+    <h1 class="w-full text-center text-2xl font-[300] mb-4">Bem-vindo(a) ao Sistema Cead!</h1>
+    <p class="text-lg mb-4 w-full text-center">Para seu primeiro acesso, preencha os campos a seguir:</p>
     {{form}}
-    <button type="submit">Enviar</button>
+    {% include 'components/submitButton.html' with title='Enviar' %}
 </form>
 
 {% endblock %}
