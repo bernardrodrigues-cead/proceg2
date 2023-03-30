@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FichaUab.apps.FichauabConfig',
-    'localflavor'
+    'localflavor',
+    'pdfkit',
+    'jinja2'
 ]
 
 MIDDLEWARE = [

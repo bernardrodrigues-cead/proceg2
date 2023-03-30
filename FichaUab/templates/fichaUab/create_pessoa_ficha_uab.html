@@ -5,6 +5,9 @@
 <!-- O descritor [&>input]: do Tailwind indica todos os filhos daquele elemento do tipo input -->
 <!-- É possível amplificar a árvore de busca fazendo, por exemplo, [&>div>input] em busca de 
     um input filho de uma div do elemento atual e assim por diante -->
+
+{% include 'components/error.html' %}
+
 <form 
     method="post"
     class="
@@ -34,6 +37,9 @@
             <label>{{form.cpf.label}}: </label>{{form.cpf}}
             <label>{{form.data_nascimento.label}}: </label>{{form.data_nascimento}}
             <label>{{form.profissao.label}}: </label>{{form.profissao}}
+        </div>
+        <div class="[&>input]:w-1/2">
+            <label>{{form.email.label}}: </label>{{form.email}}
         </div>
         <div>
             <label>{{form.tipo_documento.label}}: </label>{{form.tipo_documento}}

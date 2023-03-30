@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import json
 from django import forms
 from django.shortcuts import redirect, render
 from django.views.generic.edit import UpdateView, CreateView
@@ -155,6 +156,10 @@ class PessoaFichaUabCreateView(CreateView):
         new_data.dados_bancarios = new_dados_bancarios
 
         new_data.save()
+
+        with open('data.json', 'w') as f:
+            json.dump(form.cleaned_data, f)
+
         return redirect('index')
     
 class PessoaFichaUabUpdateView(UpdateView):
@@ -234,4 +239,29 @@ class PessoaFichaUabUpdateView(UpdateView):
         new_data.dados_bancarios = new_dados_bancarios
 
         new_data.save()
+
+        # Chaves filtradas por conterem formato Object ou datetime
+        # O arquivo json só aceita objetos String, Booleanos, Null ou Numéricos
+        keys_to_exclude = ['curso_vinculado', 'data_emissao', 'data_inicio_vinculacao', 'data_nascimento']
+
+        # filtragem do dicionário form.cleaned_data excluindo as chaves citadas acima
+        filtered_data = {key: value for key, value in form.cleaned_data.items() if key not in keys_to_exclude}
+
+        # ajuste das chaves para o formato de interesse
+        json_data = {
+            'curso_vinculado': form.cleaned_data['curso_vinculado'].nome,
+            'data_emissao': form.cleaned_data['data_emissao'].strftime('%d/%m/%Y'),
+            'data_inicio_vinculacao': form.cleaned_data['data_inicio_vinculacao'].strftime('%d/%m/%Y'),
+            'data_nascimento': form.cleaned_data['data_nascimento'].strftime('%d/%m/%Y'),
+            **filtered_data
+        }
+
+        # escrita do arquivo .json
+        with open('FichaUab/utils/pdfgen/context/context.json', 'w', encoding='utf-8') as f:
+            json.dump(json_data, f, indent=4, ensure_ascii=False)
+        
         return redirect('index')
+    
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
